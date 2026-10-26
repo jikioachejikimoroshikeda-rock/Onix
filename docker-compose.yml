@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    container_name: onix-backend
+    environment:
+      APP_ENV: development
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+      DEFAULT_MODEL: anthropic/claude-3-5-sonnet-20241022
+      DEFAULT_PROVIDER: anthropic
+      OIDC_PROXY_URL: http://oidc-proxy:8787
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./apps/backend:/app
+
+  oidc-proxy:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: sh -c "npm install && npx wrangler dev --host 0.0.0.0 --port 8787"
+    volumes:
+      - ./infra/cloudflare/oidc-proxy:/workspace
+    ports:
+      - "8787:8787"

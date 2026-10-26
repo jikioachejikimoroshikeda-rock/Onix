@@ -1,36 +1,53 @@
 # Onix
 
-Onix es un monorepo para una plataforma de ingeniería asistida por IA con visualización de grafos Git, routing inteligente multi-agente y acceso seguro a proveedores de IA a través de OIDC.
+Onix is a monorepo for an AI-assisted engineering workspace with:
+- desktop UI for Git graph visualization
+- backend orchestration with FastAPI + LiteLLM
+- multi-provider AI routing
+- secure provider access through an OIDC proxy
 
-## Arquitectura
-
-- apps/desktop: frontend de escritorio con Electron + React.
-- apps/backend: backend Python con FastAPI y LiteLLM.
-- apps/orchestrator: orquestador central con routing y agentes.
-- packages/protocol: tipos y contratos compartidos.
-- infra/cloudflare/oidc-proxy: proxy OIDC para reenvío seguro de peticiones.
-
-## Stack previsto
-
-- Frontend: Electron + React + TypeScript
-- Backend: Python + FastAPI + LiteLLM
-- Orquestador: Go / router lógico
-- Infra: Cloudflare Worker + GitHub OIDC
-- Comunicación: JSON + MCP / stdio
-
-## Estructura principal
+## Architecture
 
 ```text
 apps/
-  desktop/
-  backend/
-  orchestrator/
+  desktop/       # Electron + React UI
+  backend/       # Python FastAPI API + LiteLLM
+  orchestrator/  # Go-based router/orchestrator (scaffold)
 packages/
-  protocol/
+  protocol/      # shared TS contracts
 infra/
   cloudflare/
+    oidc-proxy/  # Cloudflare Worker OIDC gateway
 ```
 
-## Objetivo
+## Quick start
 
-Unificar visualización, coordinación de agentes IA y acceso seguro a proveedores como Anthropic, OpenAI y Gemini bajo un mismo sistema.
+### Backend
+
+```bash
+cd apps/backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
+
+### Worker (Cloudflare)
+
+```bash
+cd infra/cloudflare/oidc-proxy
+npm install
+npx wrangler dev
+```
+
+### Desktop
+
+```bash
+cd apps/desktop
+npm install
+npm run dev
+```
+
+## Notes
+
+This is the initial functional scaffold for Onix. The backend exposes a simple chat endpoint and the worker provides the OIDC proxy pattern for secure upstream provider routing.
