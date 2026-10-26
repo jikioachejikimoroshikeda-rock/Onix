@@ -1,0 +1,24 @@
+{
+  "name": "@onix/desktop",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "node ./scripts/dev.js",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "electron": "^33.0.2",
+    "typescript": "^5.6.3",
+    "eslint": "^9.16.0",
+    "vitest": "^2.1.8"
+  }
+}

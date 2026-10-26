@@ -1,0 +1,21 @@
+name = "anthropic-oidc-proxy"
+main = "src/index.ts"
+compatibility_date = "2026-04-01"
+
+[vars]
+OIDC_ISSUER = "https://token.actions.githubusercontent.com"
+OIDC_AUDIENCE = "goose-oidc-proxy"
+MAX_TOKEN_AGE_SECONDS = 1800
+MAX_REQUESTS_PER_TOKEN = 200
+RATE_LIMIT_PER_SECOND = 2
+UPSTREAM_URL = "https://api.anthropic.com"
+UPSTREAM_AUTH_HEADER = "x-api-key"
+CORS_EXTRA_HEADERS = "anthropic-version,anthropic-dangerous-direct-browser-access"
+
+[[durable_objects.bindings]]
+name = "TOKEN_TRACKER"
+class_name = "TokenTracker"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["TokenTracker"]

@@ -1,0 +1,16 @@
+[project]
+name = "onix-backend"
+version = "0.1.0"
+description = "Backend de Onix con FastAPI y LiteLLM"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn>=0.30.0",
+  "litellm==1.81.6",
+  "pydantic>=2.8.0",
+  "python-dotenv>=1.0.1",
+  "httpx>=0.27.2",
+]
+
+[tool.uv]
+package = true
